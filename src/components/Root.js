@@ -3,40 +3,26 @@ import TaskItem from './TaskItem';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import AddTask from './AddTask';
-import TaskCard from './TaskCard';
+import PlanCard from './PlanCard';
+import SummaryCard from './SummaryCard';
 
 export default class Root extends Component{
 
  
 
-  formatDate = (date) => {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-  
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-  }
-  state = {
-    date: this.formatDate(new Date())
-}
   render() {
     
     
       return (
-        <div style={{ padding: '50px' }}>
+        <div style={{ padding: '50px'}} >
 
           <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid item xs={12} >
             <TextField
                 id="Username"
                 label="Name"
+                placeholder="Enter Name"
+                autoFocus
                 style={{ margin: 8 }}
                 value={this.props.name}
                 margin="dense"
@@ -44,10 +30,10 @@ export default class Root extends Component{
                 onChange={this.props.nameChange}
             />
           </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
               <AddTask addTask={this.props.addTask}/>
 </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={12} sm={6}>
               { this.props.tasks.map((task) => (
           
         
@@ -58,11 +44,11 @@ export default class Root extends Component{
               )
         }
         </Grid>
-        <Grid item xs={12} sm={6}>
-              <TaskCard date={this.state.date} type={'Plan'} name={this.props.name} tasks={this.props.tasks}/>
+        <Grid item xs={12} sm={6} style={{ backgroundColor: '#B5FBDD' }}>
+          <PlanCard date={this.props.date} type={'Plan'} taskId ={1} name={this.props.name} tasks={this.props.tasks}/>
         </Grid>
-        <Grid item xs={12} sm={6}>
-        <TaskCard date={this.state.date} type={'Summary'} name={this.props.name} tasks={this.props.tasks}/>
+        <Grid item xs={12} sm={6} style={{ backgroundColor: '#D4DADE' }}>
+        <SummaryCard date={this.props.date} type={'Summary'} taskId ={2} name={this.props.name} tasks={this.props.tasks}/>
         </Grid>
       
       </Grid>

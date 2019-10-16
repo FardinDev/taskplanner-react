@@ -40,6 +40,7 @@ export class TaskItem extends Component {
                         onChange={this.props.markDone.bind(this, id)}
                         checked={done ? true : false}
                         color='primary'
+                        
                     />
                     {name}
                     <label onClick={this.props.delTask.bind(this, id)}>
