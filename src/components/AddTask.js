@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 export class AddTask extends Component {
-    state = {
-        name: '',
-    }
+ 
 
-    setTask = (e) => { 
-        this.setState({[e.target.name]: e.target.value})
-    }
+   
 
     submit = (e) => {
+        
+        if (this.props.edit) {
 
-
-        e.preventDefault();
-        this.props.addTask(this.state.name);
-        this.setState({name: ''})
+            e.preventDefault();
+            this.props.update(this.props.taskName);
+         
+        }
+        else {
+            
+            e.preventDefault();
+            this.props.addTask(this.props.taskName);
+        }
 
         
     }
@@ -28,20 +30,21 @@ export class AddTask extends Component {
                 <form onSubmit={this.submit} style={{display: 'flex'}} autoComplete="off" >
                 <TextField
                         id='name'
-                        name='name'
+                        name='taskName'
                         label="Task"
                         style={{ margin: 8 }}
                         placeholder="Enter Tasks"
                         fullWidth
                         multiline
-                        rows="4"
+                        rows="5"
                         margin="normal"
                         variant="outlined"
                         InputLabelProps={{
                         shrink: true,
                         }}
-                        value={this.state.name}
-                        onChange={this.setTask}
+
+                        value={this.props.taskName}
+                        onChange={this.props.setTaskName}
                         required
 
                     />

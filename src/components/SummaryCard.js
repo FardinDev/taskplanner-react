@@ -27,7 +27,7 @@ export class SummaryCard extends Component {
                     </Typography>
                     <br />
                     <Typography variant="body2" component="div">
-                    Done ✅
+                    <b> Done  <span role='img' aria-labelledby='done'>✅</span></b>
                         { this.props.tasks.map((task) => ( task.done ? 
                     
                             <div key={task.id}>
@@ -44,7 +44,8 @@ export class SummaryCard extends Component {
                     <br />
                     <Typography variant="body2" component="div">
                
-                    Pending ⏱
+
+                    <b> Pending  <span role='img' aria-labelledby='pending'>⏱</span></b>
                     
                         { this.props.tasks.map((task) => ( !task.done ?
                     

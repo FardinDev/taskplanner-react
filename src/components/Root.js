@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import AddTask from './AddTask';
 import PlanCard from './PlanCard';
 import SummaryCard from './SummaryCard';
+import List from '@material-ui/core/List';
 
 export default class Root extends Component{
 
@@ -31,14 +32,22 @@ export default class Root extends Component{
             />
           </Grid>
         <Grid item xs={12} sm={6}>
-              <AddTask addTask={this.props.addTask}/>
+              <AddTask taskName={this.props.taskName} setTaskName={this.props.setTaskName} addTask={this.props.addTask} edit={this.props.edit} update={this.props.update}/>
 </Grid>
             <Grid item xs={12} sm={6}>
               { this.props.tasks.map((task) => (
           
         
-          
-                <TaskItem key={task.id} task={task} markDone={this.props.markDone} delTask={this.props.delTask}/>
+                <List key={task.id}>
+
+                  <TaskItem task={task}
+                    markDone={this.props.markDone}
+                    edtTask={this.props.edtTask}
+                    delTask={this.props.delTask}
+                    
+                  />
+
+                </List>
             
               )
               )

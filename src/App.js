@@ -25,15 +25,19 @@ export default class App extends Component{
     super(props);
     this.state = {
       name: '',
-      tasks: [],
+      tasks: [{
+        id: uuid.v4(),
+        name: 'test',
+        done: false
+      }],
       date: this.formatDate(new Date()),
       plan: '',
+      edit: '',
+      taskName: '',
     };
     
   }
  
-
-
   markDone = (id) => {
     this.setState({
       tasks: this.state.tasks.map(task => {
@@ -54,13 +58,43 @@ export default class App extends Component{
       name,
       done: false
     }
-    this.setState({ tasks: [...this.state.tasks, newTask] });
-    this.setState({ plan: ''+this.state.plan+''+newTask.name+'\n' });
+    this.setState({
+      tasks: [...this.state.tasks, newTask],
+      plan: '' + this.state.plan + '' + newTask.name + '\n',
+      taskName: '',
+    });
   }
+
+  edtTask = (id) => {
+
+    this.state.tasks.map(task => {
+      if (task.id === id) {
+        this.setState({ edit: task });
+        this.setState({ taskName: task.name });
+      }
+      return task
+  })
+  }
+  updateTask = (name) => {
+    this.setState({
+      tasks: this.state.tasks.map(task => {
+        if (task.id === this.state.edit.id) {
+          task.name = name;
+        }
+        
+        return task;
+      }),
+      edit: null,
+      taskName: '',
+    });
+  }
+
+  setTaskName = (e) => { 
+    this.setState({[e.target.name]: e.target.value})
+}
 
   nameChange = (e) => {
     this.setState({ name: e.target.value });
-   
   }
 
   render() {
@@ -68,7 +102,20 @@ export default class App extends Component{
       <Box>
         <Navbar />
         
-        <Root name={this.state.name} plan={this.state.plan} date={this.state.date} nameChange={this.nameChange} tasks={this.state.tasks} markDone={this.markDone} delTask={this.delTask} addTask={this.addTask}/>
+        <Root name={this.state.name}
+          plan={this.state.plan}
+          date={this.state.date}
+          nameChange={this.nameChange}
+          tasks={this.state.tasks}
+          markDone={this.markDone}
+          delTask={this.delTask}
+          addTask={this.addTask}
+          edtTask={this.edtTask}
+          edit={this.state.edit}
+          update={this.updateTask}
+          taskName={this.state.taskName}
+          setTaskName={this.setTaskName}
+        />
         
       </Box>
     );
